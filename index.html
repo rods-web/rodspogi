@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Roderic Perenal · CS Portfolio</title>
+    <!-- Font & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        /* -------------------- RESET & BASE -------------------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0f;
+            color: #e8e8e8;
+            line-height: 1.6;
+            padding: 2rem 1.5rem;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(ellipse at 10% 20%, rgba(180, 0, 0, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 90% 80%, rgba(180, 0, 0, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(30, 30, 40, 0.5) 0%, transparent 70%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(18, 18, 28, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 2.5rem;
+            box-shadow: 
+                0 30px 80px -20px rgba(0, 0, 0, 0.8),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            padding: 3rem 2.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.3s ease;
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #ff1a1a, #cc0000);
+            border-radius: 10px;
+        }
+
+        /* -------------------- TYPOGRAPHY & COLORS -------------------- */
+        h1,
+        h2,
+        h3 {
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #ff6b6b 50%, #ff0000 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.2rem;
+            text-shadow: 0 0 60px rgba(255, 0, 0, 0.15);
+            animation: glowPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+            0%,
+            100% {
+                text-shadow: 0 0 40px rgba(255, 0, 0, 0.1);
+            }
+            50% {
+                text-shadow: 0 0 80px rgba(255, 0, 0, 0.2);
+            }
+        }
+
+        .subhead {
+            font-size: 1.15rem;
+            font-weight: 400;
+            color: #ff6b6b;
+            padding-left: 1.5rem;
+            margin-bottom: 2rem;
+            background: rgba(255, 0, 0, 0.05);
+            padding: 0.7rem 1.8rem;
+            border-radius: 0 50px 50px 0;
+            display: inline-block;
+            border: 1px solid rgba(255, 0, 0, 0.15);
+            border-left: 4px solid #ff0000;
+            backdrop-filter: blur(10px);
+        }
+
+        .subhead i {
+            color: #ff0000;
+            margin-right: 10px;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: #ffffff;
+            margin: 2.8rem 0 1.8rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(255, 0, 0, 0.3), transparent);
+            margin-left: 1rem;
+        }
+
+        h2 i {
+            color: #ff0000;
+            font-size: 1.8rem;
+            width: 2.4rem;
+            text-shadow: 0 0 30px rgba(255, 0, 0, 0.3);
+        }
+
+        /* -------------------- HEADER / HERO -------------------- */
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 2rem 2.5rem;
+            border-radius: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 0, 0, 0.05), transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-left {
+            flex: 2 1 280px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-right {
+            flex: 1 1 160px;
+            text-align: right;
+            position: relative;
+            z-index: 1;
+        }
+
+        .badge {
+            background: rgba(255, 0, 0, 0.1);
+            color: #ff6b6b;
+            padding: 0.5rem 1.6rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+            letter-spacing: 0.5px;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .badge:hover {
+            background: rgba(255, 0, 0, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.1);
+        }
+
+        .badge i {
+            margin-right: 6px;
+            color: #ff0000;
+        }
+
+        .contact-links {
+            display: flex;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .contact-links a {
+            color: #b0b0b8;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .contact-links a:hover {
+            color: #ff3333;
+            background: rgba(255, 0, 0, 0.08);
+            border-color: rgba(255, 0, 0, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.08);
+        }
+
+        /* -------------------- CARDS / PROJECTS -------------------- */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 1.8rem 0 1rem;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 1.8rem;
+            padding: 2.2rem 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 0, 0, 0.03), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px) scale(1.01);
+            border-color: rgba(255, 0, 0, 0.2);
+            box-shadow: 0 30px 50px -20px rgba(255, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .project-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #ffffff;
+        }
+
+        .project-card h3 i {
+            color: #ff0000;
+            font-size: 1.3rem;
+            text-shadow: 0 0 30px rgba(255, 0, 0, 0.2);
+        }
+
+        .project-card p {
+            color: #b0b0b8;
+            margin: 0.5rem 0 1rem;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 0.8rem 0 1.5rem;
+        }
+
+        .tech-tags span {
+            background: rgba(255, 0, 0, 0.08);
+            color: #ff6b6b;
+            padding: 0.25rem 1rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            border: 1px solid rgba(255, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .tech-tags span:hover {
+            background: rgba(255, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .card-link {
+            font-weight: 600;
+            color: #ff6b6b;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1.4rem;
+            border-radius: 30px;
+            background: rgba(255, 0, 0, 0.05);
+            border: 1px solid rgba(255, 0, 0, 0.1);
+        }
+
+        .card-link i {
+            font-size: 0.8rem;
+            transition: transform 0.3s ease;
+        }
+
+        .card-link:hover {
+            color: #ffffff;
+            background: #ff0000;
+            border-color: #ff0000;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.2);
+        }
+
+        .card-link:hover i {
+            transform: translateX(6px);
+        }
+
+        /* -------------------- API SECTION -------------------- */
+        .api-demo {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 2rem;
+            padding: 2.5rem 2.5rem 2.2rem;
+            margin: 3rem 0 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .api-demo::before {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 0, 0, 0.03), transparent 70%);
+            pointer-events: none;
+        }
+
+        .api-demo h2 {
+            margin-top: 0;
+        }
+
+        .api-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1.5rem 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .api-input-group {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.8rem;
+            flex: 2 1 280px;
+        }
+
+        .api-input-group label {
+            font-weight: 600;
+            color: #ff6b6b;
+        }
+
+        .api-input-group input {
+            flex: 2 1 160px;
+            padding: 0.8rem 1.4rem;
+            border: 2px solid rgba(255, 255, 255, 0.06);
+            border-radius: 50px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            background: rgba(0, 0, 0, 0.3);
+            color: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        .api-input-group input:focus {
+            outline: none;
+            border-color: #ff0000;
+            box-shadow: 0 0 0 4px rgba(255, 0, 0, 0.08);
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .api-btn {
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+            color: #ffffff;
+            border: none;
+            padding: 0.8rem 2.2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.2);
+        }
+
+        .api-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 0, 0, 0.3);
+        }
+
+        .api-btn:active {
+            transform: scale(0.96);
+        }
+
+        .api-result-box {
+            margin-top: 2rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 1.5rem;
+            padding: 1.2rem 2rem;
+            border-left: 5px solid #ff0000;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(10px);
+        }
+
+        .api-result-box .result-label {
+            font-weight: 600;
+            color: #ff6b6b;
+        }
+
+        .api-result-box .result-value {
+            font-family: 'Inter', monospace;
+            background: rgba(255, 0, 0, 0.08);
+            padding: 0.3rem 1.4rem;
+            border-radius: 50px;
+            font-weight: 500;
+            color: #ffffff;
+            border: 1px solid rgba(255, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .api-result-box .fake-endpoint {
+            font-size: 0.7rem;
+            background: rgba(255, 0, 0, 0.05);
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            color: #ff6b6b;
+            border: 1px solid rgba(255, 0, 0, 0.08);
+        }
+
+        .footnote {
+            font-size: 0.8rem;
+            color: #8888a0;
+            margin-top: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .footnote i {
+            color: #ff0000;
+        }
+
+        /* -------------------- CHATBOT SECTION -------------------- */
+        .chat-section {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 2rem;
+            padding: 2.2rem 2.5rem;
+            margin: 3rem 0 0.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .chat-box {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 1.5rem;
+            padding: 1.5rem 2rem;
+            min-height: 140px;
+            max-height: 220px;
+            overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            margin: 1.2rem 0 1.2rem;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .chat-message {
+            padding: 0.7rem 1.4rem;
+            border-radius: 30px;
+            max-width: 80%;
+            font-size: 0.92rem;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .chat-message.bot {
+            background: rgba(255, 0, 0, 0.08);
+            color: #ff6b6b;
+            align-self: flex-start;
+            border-bottom-left-radius: 6px;
+            border: 1px solid rgba(255, 0, 0, 0.08);
+        }
+
+        .chat-message.user {
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+            color: #ffffff;
+            align-self: flex-end;
+            border-bottom-right-radius: 6px;
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.15);
+        }
+
+        .chat-input-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .chat-input-row input {
+            flex: 3 1 200px;
+            padding: 0.8rem 1.4rem;
+            border: 2px solid rgba(255, 255, 255, 0.06);
+            border-radius: 50px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            background: rgba(0, 0, 0, 0.3);
+            color: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input-row input:focus {
+            outline: none;
+            border-color: #ff0000;
+            box-shadow: 0 0 0 4px rgba(255, 0, 0, 0.08);
+        }
+
+        .chat-btn {
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+            color: #ffffff;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.15);
+        }
+
+        .chat-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 0, 0, 0.25);
+        }
+
+        .chat-btn:active {
+            transform: scale(0.96);
+        }
+
+        .chat-btn.clear-btn {
+            background: rgba(255, 255, 255, 0.04);
+            color: #ff6b6b;
+            box-shadow: none;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .chat-btn.clear-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-2px);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* -------------------- SKILLS / BADGES -------------------- */
+        .skills-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2.5rem;
+            margin: 2.5rem 0 0.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 2rem 2.5rem;
+            border-radius: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(10px);
+        }
+
+        .skills-wrap h3 {
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+            color: #ffffff;
+        }
+
+        .skills-wrap h3 i {
+            color: #ff0000;
+            margin-right: 8px;
+        }
+
+        .badge-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 0.8rem;
+        }
+
+        .badge-stack .badge {
+            background: rgba(255, 0, 0, 0.06);
+            color: #ff6b6b;
+            padding: 0.3rem 1.4rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .badge-stack .badge:hover {
+            background: rgba(255, 0, 0, 0.12);
+            transform: translateY(-2px);
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            margin: 2.5rem 0 0.5rem;
+        }
+
+        .footer {
+            margin-top: 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            color: #8888a0;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            padding-top: 2rem;
+        }
+
+        .footer a {
+            color: #ff6b6b;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: #ff0000;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .container {
+                padding: 1.5rem 1rem;
+            }
+            h1 {
+                font-size: 2.5rem;
+            }
+            .hero-right {
+                text-align: left;
+                width: 100%;
+            }
+            .api-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .chat-input-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .api-result-box {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .hero {
+                padding: 1.5rem;
+            }
+            .subhead {
+                font-size: 1rem;
+                padding: 0.5rem 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HERO -->
+        <div class="hero">
+            <div class="hero-left">
+                <h1>Roderic Perenal</h1>
+                <div class="subhead">
+                    <i class="fas fa-graduation-cap"></i>
+                    4th Year Computer Science Student
+                </div>
+                <div class="contact-links">
+                    <a href="https://github.com/rods-web" target="_blank"><i class="fab fa-github"></i> github/rods-web</a>
+                    <a href="mailto:rods21266@gmail.com"><i class="fas fa-envelope"></i> rods21266</a>
+                    <a href="#" onclick="alert('📱 LinkedIn: linkedin/in/rodericp'); return false;"><i class="fab fa-linkedin"></i> linkedin/in/rodericp</a>
+                </div>
+            </div>
+            <div class="hero-right">
+                <span class="badge"><i class="fas fa-calendar-check"></i> graduating 2026</span>
+                <div style="margin-top: 0.8rem; font-size: 0.9rem; color: #ff6b6b; font-weight: 500;">
+                    <i class="fas fa-map-pin"></i>  · open for internships
+                </div>
+            </div>
+        </div>
+
+        <!-- PROJECTS -->
+        <h2><i class="fas fa-laptop-code"></i> Featured Projects</h2>
+        <div class="project-grid">
+            <div class="project-card">
+                <h3><i class="fas fa-cloud-sun"></i> Weather API</h3>
+                <p>RESTful API built with Flask + OpenWeather. Returns current weather and 5‑day forecast with caching.</p>
+                <div class="tech-tags"><span>Python</span><span>Flask</span><span>REST</span></div>
+                <a href="#" class="card-link" onclick="alert('🌤️ Weather API project – view details'); return false;">View project <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="project-card">
+                <h3><i class="fas fa-tasks"></i> TaskFlow</h3>
+                <p>Full‑stack task manager with JWT auth, SQLite, and a reactive front‑end with real-time updates.</p>
+                <div class="tech-tags"><span>Python</span><span>Flask</span><span>SQLite</span><span>JWT</span></div>
+                <a href="#" class="card-link" onclick="alert('✅ TaskFlow – full-stack task manager'); return false;">View project <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="project-card">
+                <h3><i class="fas fa-chart-line"></i> MarketDash</h3>
+                <p>Real‑time stock dashboard using Polygon.io API, with pandas data processing and Redis caching.</p>
+                <div class="tech-tags"><span>Python</span><span>Pandas</span><span>API</span><span>Redis</span></div>
+                <a href="#" class="card-link" onclick="alert('📈 MarketDash – real-time stock dashboard'); return false;">View project <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- PYTHON + API DEMO -->
+        <div class="api-demo">
+            <h2><i class="fas fa-plug"></i> Live API Demo</h2>
+            <p style="margin-bottom: 1.5rem; color: #b0b0b8;">
+                <i class="fas fa-arrow-right" style="color: #ff0000;"></i>
+                Simulated Flask endpoint — click to call the API and get a personalized response.
+            </p>
+
+            <div class="api-row">
+                <div class="api-input-group">
+                    <label for="username"><i class="fas fa-user"></i> Name</label>
+                    <input type="text" id="username" placeholder="Enter your name" value="Roderic" />
+                </div>
+                <button class="api-btn" id="callApiBtn">
+                    <i class="fas fa-play"></i> Call /api/hello
+                </button>
+            </div>
+
+            <div class="api-result-box" id="apiResultBox">
+                <span class="result-label"><i class="fas fa-comment-dots" style="margin-right: 8px;"></i> API Response:</span>
+                <span class="result-value" id="apiResultText">Hello, Roderic! 👋 (from Flask)</span>
+                <span class="fake-endpoint"><i class="fas fa-code-branch"></i> GET /api/hello</span>
+            </div>
+
+            <div class="footnote">
+                <i class="fas fa-info-circle"></i>
+                <span>Simulated Flask API with Python 3.11. In production, use <code>fetch()</code> to call a live endpoint.</span>
+                <span style="background: rgba(255, 0, 0, 0.06); padding: 0.2rem 1.4rem; border-radius: 30px; font-size: 0.7rem; font-weight: 600; border: 1px solid rgba(255, 0, 0, 0.08); color: #ff6b6b;">
+                    <i class="fas fa-python"></i> Flask + Python
+                </span>
+            </div>
+        </div>
+
+        <!-- CHATBOT SECTION -->
+        <div class="chat-section">
+            <h2><i class="fas fa-robot"></i> Portfolio Assistant</h2>
+            <p style="color: #b0b0b8; margin-bottom: 0.8rem;">
+                <i class="fas fa-comment" style="color: #ff0000;"></i>
+                Chat with my AI assistant — ask about my skills, projects, or just say hello!
+            </p>
+            <div class="chat-box" id="chatBox">
+                <div class="chat-message bot"><i class="fas fa-robot" style="margin-right: 8px;"></i> Hi! I'm Roderic's AI assistant. Ask me anything about his work, skills, or projects.</div>
+            </div>
+            <div class="chat-input-row">
+                <input type="text" id="chatInput" placeholder="Type your message..." />
+                <button class="chat-btn" id="sendChatBtn"><i class="fas fa-paper-plane"></i> Send</button>
+                <button class="chat-btn clear-btn" id="clearChatBtn"><i class="fas fa-eraser"></i> Clear</button>
+            </div>
+        </div>
+
+        <!-- SKILLS -->
+        <div class="skills-wrap">
+            <div>
+                <h3><i class="fas fa-tools"></i> Core Stack</h3>
+                <div class="badge-stack">
+                    <span class="badge">Python</span>
+                    <span class="badge">Flask</span>
+                    <span class="badge">SQLAlchemy</span>
+                    <span class="badge">REST APIs</span>
+                    <span class="badge">JavaScript</span>
+                    <span class="badge">HTML5/CSS3</span>
+                    <span class="badge">React</span>
+                    <span class="badge">PostgreSQL</span>
+                    <span class="badge">Redis</span>
+                    <span class="badge">Docker</span>
+                </div>
+            </div>
+            <div>
+                <h3><i class="fas fa-graduation-cap"></i> Currently Exploring</h3>
+                <span style="background: rgba(255, 0, 0, 0.06); padding: 0.5rem 1.8rem; border-radius: 50px; font-size: 0.85rem; font-weight: 600; border: 1px solid rgba(255, 0, 0, 0.08); color: #ff6b6b; display: inline-block;">
+                    <i class="fas fa-brain"></i>  AI‑Powered Microservices
+                </span>
+            </div>
+        </div>
+
+        <hr />
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <span>© 2026 Roderic Perenal — built with <i class="fas fa-heart" style="color: #ff0000;"></i> &amp; Flask</span>
+            <span>
+                <a href="https://github.com/rods-web" target="_blank"><i class="fab fa-github"></i> source</a> ·
+                <a href="#" onclick="alert('📄 Download resume (PDF)'); return false;"><i class="fas fa-file-alt"></i> resume</a>
+            </span>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        (function() {
+            // ---------- API SIMULATION ----------
+            const apiBtn = document.getElementById('callApiBtn');
+            const usernameInput = document.getElementById('username');
+            const apiResult = document.getElementById('apiResultText');
+
+            function simulateApiCall(name) {
+                const cleanName = name.trim() || 'Guest';
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        const responses = [
+                            `Hello, ${cleanName}! 👋 (from Flask)`,
+                            `Hey ${cleanName}, welcome to the API! 🚀`,
+                            `Hi ${cleanName}, your Flask backend is
