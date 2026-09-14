@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Diabetes Risk Prediction System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="landing-body">
+    <nav class="navbar">
+        <div class="nav-logo">🩺 DiaPredict</div>
+        <div class="nav-links">
+            <a href="{{ url_for('login') }}" class="btn-outline">Login</a>
+            <a href="{{ url_for('signup') }}" class="btn-primary">Sign Up</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Predict Diabetes Risk with AI</h1>
+            <p>An enhanced Random Forest machine learning system for accurate, reliable diabetes risk assessment using clinical health data.</p>
+            <div class="hero-buttons">
+                <a href="{{ url_for('signup') }}" class="btn-primary btn-lg">Get Started</a>
+                <a href="{{ url_for('login') }}" class="btn-outline btn-lg">I Have an Account</a>
+            </div>
+        </div>
+        <div class="hero-illustration">
+            <div class="floating-card">📊 98% Accuracy</div>
+            <div class="floating-card delay-1">🧠 HFS-RF Model</div>
+            <div class="floating-card delay-2">⚡ Real-Time</div>
+        </div>
+    </section>
+
+    <section class="features">
+        <h2>Key Features</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>High Accuracy</h3>
+                <p>Enhanced Random Forest optimized through feature selection and hyperparameter tuning.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Instant Results</h3>
+                <p>Get diabetes risk predictions in real time through an intuitive web interface.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>Secure Accounts</h3>
+                <p>Protected user accounts ensure your health data stays private and safe.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>© 2025 DiaPredict | Pamantasan ng Lungsod ng Muntinlupa</p>
+        <p class="disclaimer">This system is not a medical diagnosis. Consult a healthcare professional.</p>
+    </footer>
+</body>
+</html>

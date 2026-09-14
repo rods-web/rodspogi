@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Diabetes Risk Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>🩺 Diabetes Risk Prediction System</h1>
+        <p>Enter your health information below:</p>
+        <form action="/predict" method="POST">
+            {% for feature in features %}
+            <div class="field">
+                <label>{{ feature }}</label>
+                <input type="number" step="any" name="{{ feature }}" required>
+            </div>
+            {% endfor %}
+            <button type="submit">Predict Risk</button>
+        </form>
+    </div>
+</body>
+</html>

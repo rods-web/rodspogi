@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard - DiaPredict</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="app-body">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">🩺 DiaPredict</div>
+        <nav class="sidebar-nav">
+            <a href="{{ url_for('dashboard') }}" class="active">📊 Dashboard</a>
+            <a href="{{ url_for('predict') }}">🧪 New Prediction</a>
+            <a href="{{ url_for('history') }}">📁 History</a>
+            <a href="{{ url_for('settings') }}">⚙️ Settings</a>  
+        </nav>
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <div class="user-avatar">{{ user[0]|upper }}</div>
+                <div>
+                    <div class="user-name">{{ user }}</div>
+                    <div class="user-email">{{ email }}</div>
+                </div>
+            </div>
+            <a href="{{ url_for('logout') }}" class="btn-logout">Logout</a>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- TITLE BAR -->
+        <header class="page-header">
+            <h1>Dashboard</h1>
+            <p>Welcome back, {{ user }}. Here's your system overview.</p>
+        </header>
+
+        <!-- TOP KPI CARDS -->
+        <section class="kpi-row">
+            <div class="kpi-card">
+                <div class="kpi-icon blue">🎯</div>
+                <div>
+                    <div class="kpi-label">Model Accuracy</div>
+                    <div class="kpi-value">
+                        {% for row in comparison %}{% if row.model == 'Enhanced RF (HFS-RF)' %}{{ (row.accuracy*100)|round(2) }}%{% endif %}{% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon green">📈</div>
+                <div>
+                    <div class="kpi-label">Recall</div>
+                    <div class="kpi-value">
+                        {% for row in comparison %}{% if row.model == 'Enhanced RF (HFS-RF)' %}{{ (row.recall*100)|round(2) }}%{% endif %}{% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon orange">⚖️</div>
+                <div>
+                    <div class="kpi-label">F1-Score</div>
+                    <div class="kpi-value">
+                        {% for row in comparison %}{% if row.model == 'Enhanced RF (HFS-RF)' %}{{ (row.f1*100)|round(2) }}%{% endif %}{% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon purple">🏆</div>
+                <div>
+                    <div class="kpi-label">AUC-ROC</div>
+                    <div class="kpi-value">
+                        {% for row in comparison %}{% if row.model == 'Enhanced RF (HFS-RF)' %}{{ (row.auc*100)|round(2) }}%{% endif %}{% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHARTS ROW -->
+        <section class="charts-row">
+            <div class="chart-card">
+                <h3>Model Performance Comparison</h3>
+                <canvas id="comparisonChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <h3>Metric Distribution</h3>
+                <canvas id="radarChart"></canvas>
+            </div>
+        </section>
+
+        <!-- BOTTOM ROW -->
+        <section class="bottom-row">
+            <div class="table-card">
+                <h3>Detailed Comparison</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>Accuracy</th>
+                            <th>Precision</th>
+                            <th>Recall</th>
+                            <th>F1</th>
+                            <th>AUC</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in comparison %}
+                        <tr>
+                            <td><strong>{{ row.model }}</strong></td>
+                            <td>{{ "%.3f"|format(row.accuracy) }}</td>
+                            <td>{{ "%.3f"|format(row.precision) }}</td>
+                            <td>{{ "%.3f"|format(row.recall) }}</td>
+                            <td>{{ "%.3f"|format(row.f1) }}</td>
+                            <td>{{ "%.3f"|format(row.auc) }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="cta-card">
+                <h3>Ready to Predict?</h3>
+                <p>Enter patient health data and get an instant diabetes risk assessment.</p>
+                <a href="{{ url_for('predict') }}" class="btn-primary btn-block">🧪 New Prediction</a>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        const comparisonData = {{ comparison|tojson }};
+
+        // Bar chart
+        const ctx1 = document.getElementById('comparisonChart');
+        new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: comparisonData.map(d => d.model),
+                datasets: [
+                    { label: 'Accuracy',  data: comparisonData.map(d => d.accuracy),  backgroundColor: '#667eea' },
+                    { label: 'Precision', data: comparisonData.map(d => d.precision), backgroundColor: '#764ba2' },
+                    { label: 'Recall',    data: comparisonData.map(d => d.recall),    backgroundColor: '#f093fb' },
+                    { label: 'F1',        data: comparisonData.map(d => d.f1),        backgroundColor: '#4facfe' },
+                ]
+            },
+            options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+        });
+
+        // Radar chart
+        const ctx2 = document.getElementById('radarChart');
+        const top = comparisonData[0] || {};
+        new Chart(ctx2, {
+            type: 'radar',
+            data: {
+                labels: ['Accuracy', 'Precision', 'Recall', 'F1', 'AUC'],
+                datasets: [{
+                    label: top.model || 'Model',
+                    data: [top.accuracy, top.precision, top.recall, top.f1, top.auc],
+                    backgroundColor: 'rgba(102, 126, 234, 0.3)',
+                    borderColor: '#667eea',
+                    borderWidth: 2,
+                }]
+            },
+            options: { responsive: true, scales: { r: { beginAtZero: true, max: 1 } } }
+        });
+    </script>
+<!-- ============ CHATBOT WIDGET ============ -->
+<div id="chat-toggle" onclick="toggleChat()">💬</div>
+
+<div id="chat-box" class="chat-box">
+    <div class="chat-header">
+        <div>
+            <strong>🤖 DiaBot</strong>
+            <div class="chat-status">Ask me about diabetes or this site</div>
+        </div>
+        <span onclick="toggleChat()" class="chat-close">✖</span>
+    </div>
+
+    <div id="chat-messages" class="chat-messages">
+        <div class="chat-msg bot">
+            Hi! 👋 I'm DiaBot. Ask me anything about diabetes, this website, or how to make a prediction.
+        </div>
+    </div>
+
+    <div class="chat-input-row">
+        <input type="text" id="chat-input" placeholder="Type your question..."
+               onkeypress="if(event.key==='Enter') sendMessage()">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<script>
+function toggleChat() {
+    document.getElementById("chat-box").classList.toggle("open");
+}
+
+async function sendMessage() {
+    const input = document.getElementById("chat-input");
+    const text = input.value.trim();
+    if (!text) return;
+
+    addMessage(text, "user");
+    input.value = "";
+
+    const typingId = addMessage("...", "bot typing");
+
+    try {
+        const res = await fetch("/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: text })
+        });
+        const data = await res.json();
+        document.getElementById(typingId).remove();
+        addMessage(data.reply, "bot");
+    } catch (e) {
+        document.getElementById(typingId).remove();
+        addMessage("Sorry, something went wrong. Try again.", "bot");
+    }
+}
+
+function addMessage(text, type) {
+    const container = document.getElementById("chat-messages");
+    const div = document.createElement("div");
+    const id = "msg-" + Date.now() + Math.random();
+    div.id = id;
+    div.className = "chat-msg " + type;
+    div.textContent = text;
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+    return id;
+}
+
+// Auto-open chat on first dashboard visit
+if (!sessionStorage.getItem("chatShown")) {
+    setTimeout(() => {
+        document.getElementById("chat-box").classList.add("open");
+        sessionStorage.setItem("chatShown", "1");
+    }, 1500);
+}
+</script></body>
+</html>
